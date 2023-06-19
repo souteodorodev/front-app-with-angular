@@ -1,56 +1,60 @@
 <mat-toolbar>
     <span>
-        <mat-icon>account_circle</mat-icon>
+        <mat-icon>person</mat-icon>
         Clientes
     </span>
 </mat-toolbar>
-<mat-tab-group #tabGroup="matTabGroup">
+<mat-tab-group #tabGroup="matTabGroup" class="full-width">
     <mat-tab>
         <ng-template mat-tab-label>
             <mat-icon>add</mat-icon>
             Novo
         </ng-template>
-        <mat-card>
+        <mat-card class="full-width">
             <form>
-                <mat-form-field class="full-width">
-                    <mat-label>Primeiro Nome: </mat-label>
-                    <input type="text" matInput placeholder="Digite seu primeiro nome"
-                        [(ngModel)]="customer.firstNameCustomer" name="firstNameCustomer" required />
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>Último Nome: </mat-label>
-                    <input type="text" matInput placeholder="Digite seu último nome"
-                        [(ngModel)]="customer.lastNameCustomer" name="lastNameCustomer" required />
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>CPF: </mat-label>
-                    <input type="text" matInput placeholder="Digite seu CPF" [(ngModel)]="customer.cpfCustomer"
-                        name="cpfCustomer" required />
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>Data de Nascimento: </mat-label>
-                    <input type="date" matInput placeholder="Digite sua data de nascimento"
-                        [(ngModel)]="customer.birthdateCustomer" name="birthdateCustomer" required />
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>Renda Mensal: R$ </mat-label>
-                    <input type="number" matInput placeholder="Digite sua renda mensal (R$)"
-                        [(ngModel)]="customer.monthlyIncomeCustomer" name="monthlyIncomeCustomer" required />
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>Email: </mat-label>
-                    <input type="email" matInput placeholder="Digite seu email" [(ngModel)]="customer.emailCustomer"
-                        name="emailCustomer" required />
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <mat-label>Senha: </mat-label>
-                    <input type="password" matInput placeholder="Digite sua senha"
-                        [(ngModel)]="customer.passwordCustomer" name="passwordCustomer" required />
-                </mat-form-field>
-                <button (click)="saveCustomer();" mat-raised-button color="primary">Salvar</button>
+                <div>
+                    <mat-form-field class="full-width">
+                        <mat-label>Primeiro Nome: </mat-label>
+                        <input [(ngModel)]="customer.firstNameCustomer" type="text" matInput name="firstNameCustomer"
+                            placeholder="Digite seu primeiro nome" required />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Último Nome: </mat-label>
+                        <input [(ngModel)]="customer.lastNameCustomer" type="text" matInput name="lastNameCustomer"
+                            placeholder="Digite seu último nome" required />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>CPF: </mat-label>
+                        <input [(ngModel)]="customer.cpfCustomer" type="text" matInput name="cpfCustomer"
+                            placeholder="Digite seu CPF" required />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Data de Nascimento: </mat-label>
+                        <input [(ngModel)]="customer.birthdateCustomer" type="date" matInput name="birthdateCustomer"
+                            placeholder="Digite sua data de nascimento" required />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Renda Mensal: R$ </mat-label>
+                        <input [(ngModel)]="customer.monthlyIncomeCustomer" type="number" matInput
+                            name="monthlyIncomeCustomer" placeholder="Digite sua renda mensal (R$)" required />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Email: </mat-label>
+                        <input [(ngModel)]="customer.emailCustomer" type="email" matInput name="emailCustomer"
+                            placeholder="Digite seu email" required />
+                    </mat-form-field>
+                    <mat-form-field class="full-width">
+                        <mat-label>Senha: </mat-label>
+                        <input [(ngModel)]="customer.passwordCustomer" type="password" matInput name="passwordCustomer"
+                            placeholder="Digite sua senha" required />
+                    </mat-form-field>
+                    <button (click)="saveCustomer()" mat-raised-button color="primary">Salvar</button>
+                </div>
                 <br />
                 <div role="alert" *ngIf="success == true">
-                    <span>Cliente {{ customer.firstNameCustomer }} cadastrado com sucesso!</span>
+                    <br>
+                    <h1> Cliente {{ customer.firstNameCustomer }} cadastrado com sucesso! <mat-icon>done_all</mat-icon>
+                    </h1>
                 </div>
                 <div role="alert" *ngFor="let error of errors">
                     <span>{{ error }}</span>
@@ -61,9 +65,10 @@
     <mat-tab>
         <ng-template mat-tab-label>
             <mat-icon>list</mat-icon>
-            Lista
+            Todos
         </ng-template>
-        <mat-card>
+        <mat-card class="full-width">
+
             <table mat-table [dataSource]="dataSource" class="full-width" matTableResponsive>
 
                 <ng-container matColumnDef="idCustomer">
@@ -108,32 +113,32 @@
 
                 <ng-container matColumnDef="statusCustomer">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let customer"><mat-icon> {{ customer.statusCustomer ?  'done_all' : 'remove_done'}} </mat-icon></td>
+                    <td mat-cell *matCellDef="let customer"> {{ customer.statusCustomer }} 
+                                     
                 </ng-container>
 
                 <ng-container matColumnDef="deleteCustomer">
                     <th mat-header-cell *matHeaderCellDef> Excluir </th>
-                    <td mat-cell *matCellDef="let customer">
-                        <a href="#" routerLink="customer" (click)="deleteCustomer(customer)">
-                            <mat-icon>delete-forever</mat-icon>
-                        </a>
-                    </td>
+                    <td mat-cell *matCellDef="let customer"> 
+                 <a href = "#" routerLink="customer" (click)="deleteCustomer(customer)"><mat-icon> delete-forever</mat-icon></a>
+                </td>
                 </ng-container>
 
                 <ng-container matColumnDef="findCustomer">
-                    <th mat-header-cell *matHeaderCellDef> Alterar </th>
-                    <td mat-cell *matCellDef="let customer">
-                        <a href="#" routerLink="customer" (click)="tabGroup.selectedIndex=0;findCustomer(customer);">
-                            <mat-icon>mode_edit</mat-icon>
-                        </a>
-                    </td>
+                    <th mat-header-cell *matHeaderCellDef> Editar </th>
+                    <td mat-cell *matCellDef="let customer"> 
+                 <a href = "#" routerLink="customer" (click)="tabGroup.selectedIndex=0;findCustomer(customer)"><mat-icon> mode-edit</mat-icon></a>
+                </td>
                 </ng-container>
+                
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
 
             <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]" showFirstLastButtons></mat-paginator>
+            
+            
         </mat-card>
     </mat-tab>
 </mat-tab-group>
