@@ -65,22 +65,6 @@ export class ProductComponent {
     });
   }
 
-  editProduct() {    
-    const datePipe = new DatePipe('en-US');
-    this.product.idCategory = Number(this.product.idCategory)
-    this.product.dateCreatedProduct = datePipe.transform(this.product.dateCreatedProduct, 'dd/MM/yyyy');
-    
-    this.service.update(this.product).subscribe((response: any) => {
-      this.success = true;
-      this.errors = [];
-      this.product = response.result as Product;       
-      var date = this.product.dateCreatedProduct;
-      var newDate = date.split("/").reverse().join("-");
-      this.product.dateCreatedProduct = newDate; 
-      this.listProduct();   
-      this.clearProduct;
-    });
-  }
   
   //clear func
   clearProduct(){
